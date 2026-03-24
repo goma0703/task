@@ -1,0 +1,4 @@
+standard = [1, 1, 2, 2, 2, 8]
+user = list(map(int, input().split()))
+for s, u in zip(standard, user):
+    print(s - u, end=' ')
