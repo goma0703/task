@@ -1,0 +1,16 @@
+#도저히 몰라서 검색 엔딩
+n=input()
+s=0
+t=True
+for i in range(len(n)):
+    if n[i].islower():
+        s+=ord(n[i])-ord('a')+1
+    else:
+        s+=ord(n[i])-ord('A')+27
+for i in range(2,s):
+    if s%i==0:
+        t=False
+        print('It is not a prime word.')
+        break
+if t:
+    print("It is a prime word.")
