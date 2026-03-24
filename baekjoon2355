@@ -1,0 +1,10 @@
+#계속 풀어도 틀려서 결국 검색 엔딩
+#지금 봐도 모르겠음
+x, y = map(int, input().split())
+
+max_n = max(x,y)
+min_n = min(x,y)
+
+sum = ((max_n-min_n+1)*(x+y))/2
+
+print(int(sum))
