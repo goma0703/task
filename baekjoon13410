@@ -1,5 +1,4 @@
-#너무 어려워서 검색 엔딩
-#다시 풀어도 못 풀듯
+#몰라서 검색 엔딩
 n,k=map(int,input().split())
 arr=[]
 for i in range(1,k+1):
