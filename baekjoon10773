@@ -1,0 +1,9 @@
+N = int(input())
+s = []
+for i in range(N):
+    n = int(input())
+    if n == 0:
+        s.pop()
+    else:
+        s.append(n)
+print(sum(s))
