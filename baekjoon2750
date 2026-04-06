@@ -1,0 +1,9 @@
+N = int(input())
+s = []
+
+for i in range(N):
+    s.append(int(input()))
+S = sorted(s)
+
+for i in range(len(s)):
+    print(S[i])
