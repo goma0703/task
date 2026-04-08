@@ -1,0 +1,15 @@
+import sys
+k, l = map(int, sys.stdin.readline().split())
+dic = {}
+# 신청 기록 입력
+for i in range(l):
+    student = sys.stdin.readline().strip()
+    dic[student] = i   # 마지막 신청 순서 저장
+# 딕셔너리를 리스트로 변환
+result = list(dic.items())   # (학번, 순서)
+# 신청 순서 기준 정렬
+result.sort(key=lambda x: x[1])
+# 수강 가능한 인원만큼 출력
+num = min(k, len(result))
+for i in range(num):
+    print(result[i][0])
