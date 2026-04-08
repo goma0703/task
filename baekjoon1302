@@ -1,0 +1,19 @@
+n = int(input())
+dic = {}
+# 책 제목 입력받기
+for i in range(n):
+    book = input()
+
+    if book in dic:
+        dic[book] += 1
+    else:
+        dic[book] = 1
+# 책 제목을 정렬
+book_list = sorted(dic.items())
+max_count = 0
+best_book = ""
+for name, count in book_list:
+    if count > max_count:
+        max_count = count
+        best_book = name
+print(best_book)
