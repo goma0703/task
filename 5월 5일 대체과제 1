@@ -1,0 +1,39 @@
+import random
+
+# 랜덤 행렬 생성
+def make_matrix(n):
+    return [[random.randint(1, n*n*10-1) for _ in range(n)] for _ in range(n)]
+
+# 출력 함수
+def print_matrix(M):
+    for row in M:
+        print(*[f"{x:4}" for x in row])
+    print()
+
+# 행렬 곱
+def multiply(A, B):
+    n = len(A)
+    return [[sum(A[i][k]*B[k][j] for k in range(n)) for j in range(n)] for i in range(n)]
+
+# 행렬 덧셈
+def add(A, B):
+    n = len(A)
+    return [[A[i][j] + B[i][j] for j in range(n)] for i in range(n)]
+
+
+# 실행
+n = int(input("N 입력 (1 < N <= 5): "))
+
+A = make_matrix(n)
+B = make_matrix(n)
+C = make_matrix(n)
+
+print("A"); print_matrix(A)
+print("B"); print_matrix(B)
+print("C"); print_matrix(C)
+
+AB = multiply(A, B)
+result = add(AB, C)
+
+print("A x B"); print_matrix(AB)
+print("A x B + C"); print_matrix(result)
