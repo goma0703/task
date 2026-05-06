@@ -1,0 +1,30 @@
+import random
+
+# 랜덤 행렬 생성
+def make_matrix(n):
+    return [[random.randint(1, n*n*10-1) for _ in range(n)] for _ in range(n)]
+
+# 출력 함수
+def print_matrix(M):
+    for row in M:
+        print(*[f"{x:4}" for x in row])
+    print()
+
+# 전치 행렬
+def transpose(M):
+    n = len(M)
+    return [[M[j][i] for j in range(n)] for i in range(n)]
+
+
+# 실행
+n = int(input("N 입력 (1 < N <= 5): "))
+
+A = make_matrix(n)
+
+print("원본 행렬")
+print_matrix(A)
+
+T = transpose(A)
+
+print("전치 행렬")
+print_matrix(T)
