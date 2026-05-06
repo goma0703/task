@@ -1,0 +1,31 @@
+n = int(input())
+
+# 랜덤 행렬 생성
+A = [[random.randint(1, n*n*10-1) for _ in range(n)] for _ in range(n)]
+B = [[random.randint(1, n*n*10-1) for _ in range(n)] for _ in range(n)]
+C = [[random.randint(1, n*n*10-1) for _ in range(n)] for _ in range(n)]
+
+# 출력 함수
+def p(M):
+    for r in M:
+        print(*[f"{x:4}" for x in r])
+    print()
+
+# A x B
+AB = [[sum(A[i][k]*B[k][j] for k in range(n)) for j in range(n)] for i in range(n)]
+
+# A x B + C
+R = [[AB[i][j] + C[i][j] for j in range(n)] for i in range(n)]
+
+# 전치행렬
+T = [[A[j][i] for j in range(n)] for i in range(n)]
+
+# 출력
+print("A"); p(A)
+print("B"); p(B)
+print("C"); p(C)
+
+print("A x B"); p(AB)
+print("A x B + C"); p(R)
+
+print("Transpose of A"); p(T)
