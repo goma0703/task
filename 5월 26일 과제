@@ -1,0 +1,63 @@
+import os
+
+# 디렉토리 이름 입력
+dir1 = input("첫 번째 디렉토리 이름: ")
+dir2 = input("두 번째 디렉토리 이름: ")
+
+# 파일 정보 저장용 딕셔너리
+files1 = {}
+files2 = {}
+
+# 첫 번째 디렉토리 검사
+with os.scandir(dir1) as it:
+    for entry in it:
+        if entry.is_file():
+            files1[entry.name] = {
+                "size": entry.stat().st_size,
+                "path": entry.path
+            }
+
+# 두 번째 디렉토리 검사
+with os.scandir(dir2) as it:
+    for entry in it:
+        if entry.is_file():
+            files2[entry.name] = {
+                "size": entry.stat().st_size,
+                "path": entry.path
+            }
+
+# 파일 개수 비교
+if len(files1) != len(files2):
+    print("파일 개수가 다릅니다.")
+else:
+    print("파일 개수가 같습니다.")
+
+# 파일 이름 비교
+if set(files1.keys()) != set(files2.keys()):
+    print("파일 이름이 다릅니다.")
+else:
+    print("파일 이름이 같습니다.")
+
+# 파일 상세 비교
+same = True
+
+for name in files1:
+    # 크기 비교
+    if files1[name]["size"] != files2[name]["size"]:
+        print(f"{name} : 파일 크기가 다릅니다.")
+        same = False
+        continue
+
+    # 내용 비교
+    with open(files1[name]["path"], "rb") as f1:
+        data1 = f1.read()
+
+    with open(files2[name]["path"], "rb") as f2:
+        data2 = f2.read()
+
+    if data1 != data2:
+        print(f"{name} : 파일 내용이 다릅니다.")
+        same = False
+
+if same:
+    print("두 디렉토리의 파일이 모두 같습니다.")
