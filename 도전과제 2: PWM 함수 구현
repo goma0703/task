@@ -1,0 +1,79 @@
+// 핀 설정
+const int LED_PIN = 7; // GPIO 7번 핀에 LED 연결
+
+// 전역 변수
+int current_period = 1000;
+int current_duty = 0;      
+
+// 사용자 정의 함수 선언
+void set_period(int period);
+void set_duty(int duty);
+void generate_pwm();
+
+void setup() {
+  pinMode(LED_PIN, OUTPUT);
+ 
+// 주기 설정
+  set_period(1000);
+}
+
+void loop() {
+  // 1초(1000ms) 동안 최소밝기(0%) -> 최대밝기(100%) -> 최소밝기(0%) 삼각파 패턴 구현
+ 
+  // 1. 최소밝기 -> 최대밝기 (0% -> 100%, 500ms 동안)
+  for (int duty = 0; duty <= 100; duty++) {
+    set_duty(duty);
+   
+    unsigned long step_duration = 500000 / 100; // 단계당 실행 시간 (us)
+    unsigned long elapsed = 0;
+   
+    while (elapsed < step_duration) {
+      generate_pwm();
+      elapsed += current_period;
+    }
+  }
+
+  // 2. 최대밝기 -> 최소밝기 (100% -> 0%, 500ms 동안)
+  for (int duty = 100; duty >= 0; duty--) {
+    set_duty(duty);
+   
+    unsigned long step_duration = 500000 / 100; // 단계당 실행 시간 (us)
+    unsigned long elapsed = 0;
+   
+    while (elapsed < step_duration) {
+      generate_pwm();
+      elapsed += current_period;
+    }
+  }
+}
+
+// 1. 주기 설정 함수 (범위: 100 ~ 10000 us)
+void set_period(int period) {
+  if (period < 100) period = 100;
+  if (period > 10000) period = 10000;
+  current_period = period;
+}
+
+// 2. Duty 설정 함수 (범위: 0 ~ 100 %)
+void set_duty(int duty) {
+  if (duty < 0) duty = 0;
+  if (duty > 100) duty = 100;
+  current_duty = duty;
+}
+
+// 3. digitalWrite()와 delayMicroseconds()를 활용한 Software PWM 생성 함수
+void generate_pwm() {
+  long high_time = ((long)current_period * current_duty) / 100;
+  long low_time = current_period - high_time;
+
+  // Active-LOW 구성 (LOW일 때 LED ON)
+  if (high_time > 0) {
+    digitalWrite(LED_PIN, LOW);
+    delayMicroseconds(high_time);
+  }
+
+  if (low_time > 0) {
+    digitalWrite(LED_PIN, HIGH);
+    delayMicroseconds(low_time);
+  }
+}
